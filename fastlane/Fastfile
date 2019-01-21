@@ -1,0 +1,49 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+  
+  # Runs before all tasks
+  before_all do
+
+    # Read the local.properties
+    f = File.open("../local.properties", "r")
+    ENV["SLACK_URL"] = f.each_line.to_a.last.split('=').last
+    f.close
+  end
+
+  desc "Build a debug APK"
+  lane :debug do
+    gradle(task: "clean assembleDebug")
+  end
+
+  # Runs after all tasks. This block is called only when the executed lane is successful
+  after_all do |lane|
+    
+    # Slack action
+    slack(
+      message: "Slack Message Delivered Successfully"
+    )
+  end
+
+  error do |lane, exception|
+    slack(
+      message: exception.message,
+      success: false
+      )
+  end
+end

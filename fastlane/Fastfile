@@ -21,7 +21,7 @@ platform :android do
   before_all do
 
     # Read the local.properties
-    f = File.open("../local.properties", "r")
+    f = File.open("../.env", "r")
     ENV["SLACK_URL"] = f.each_line.to_a.last.split('=').last
     f.close
   end

@@ -20,7 +20,7 @@ platform :android do
   # Runs before all tasks
   before_all do
 
-    # Read the local.properties
+    # Read the .env file
     f = File.open("../.env", "r")
     ENV["SLACK_URL"] = f.each_line.to_a.last.split('=').last
     f.close

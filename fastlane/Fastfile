@@ -20,10 +20,8 @@ platform :android do
   # Runs before all tasks
   before_all do
 
-    # Read the .env file
-    web_hook_url = File.open("../.env", "r")
-    ENV["SLACK_URL"] = web_hook_url.to_a.at(1).split('=').last
-    web_hook_url.close
+   # Add SLACK_URL & make it accessible to all lanes
+   ENV["SLACK_URL"]
   end
 
   desc "Build a debug APK"
@@ -31,13 +29,29 @@ platform :android do
     gradle(task: "clean assembleDebug")
   end
 
+  desc "Build a signed release APK & deploy to slack"
+  lane :slack_apk_build do
+    gradle(task: "assembleRelease")
+    upload_to_slack()
+    slack(message: ":rocket: *Build Successful!* :rocket:")
+  end
+
+  desc "Upload APK to Slack channel"
+  private_lane :upload_to_slack do |options|
+    file_path = lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+    file_name = file_path.gsub(/\/.*\//,"")
+    access_token = ENV["ACCESS_TOKEN"]
+    channel_name = "apks"
+
+    sh "echo Uploading " + file_name + " to Slack"
+    sh "curl https://slack.com/api/files.upload -F token=\"" + access_token + "\" -F channels=\"" + channel_name + "\" -F title=\"" + file_name + "\" -F filename=\"" + file_name + "\" -F file=@" + file_path
+  end
+
   # Runs after all tasks. This block is called only when the executed lane is successful
   after_all do |lane|
-    
+
     # Slack action
-    slack(
-      message: "Slack Message Delivered Successfully"
-    )
+    # slack(message: ":rocket: Successful Deployment! :rocket:")
   end
 
   error do |lane, exception|

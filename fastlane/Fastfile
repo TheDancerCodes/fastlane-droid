@@ -22,7 +22,7 @@ platform :android do
 
     # Read the .env file
     web_hook_url = File.open("../.env", "r")
-    ENV["SLACK_URL"] = web_hook_url.each_line.to_a.last.split('=').last
+    ENV["SLACK_URL"] = web_hook_url.to_a.at(1).split('=').last
     web_hook_url.close
   end
 

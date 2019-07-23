@@ -21,13 +21,13 @@ platform :android do
   before_all do
 
     # Read the .env file
-    f = File.open("../.env", "r")
-    ENV["SLACK_URL"] = f.each_line.to_a.last.split('=').last
-    f.close
+    web_hook_url = File.open("../.env", "r")
+    ENV["SLACK_URL"] = web_hook_url.each_line.to_a.last.split('=').last
+    web_hook_url.close
   end
 
   desc "Build a debug APK"
-  lane :debug do
+  lane :debug_build do
     gradle(task: "clean assembleDebug")
   end
 

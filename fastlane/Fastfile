@@ -31,7 +31,17 @@ platform :android do
 
   desc "Build a signed release APK & deploy to slack"
   lane :slack_apk_build do
-    gradle(task: "assembleRelease")
+    gradle(
+      task: "assemble",
+      build_type: "Release",
+      print_command: false,
+      properties: {
+        "android.injected.signing.store.file" => ENV['KEYSTORE_PATH'],
+        "android.injected.signing.store.password" => ENV['STORE_PASSWORD'],
+        "android.injected.signing.key.alias" => ENV['KEY_ALIAS'],
+        "android.injected.signing.key.password" => ENV['KEY_PASSWORD'],
+      }
+    )
     upload_to_slack()
     slack(message: ":rocket: *Build Successful!* :rocket:")
   end

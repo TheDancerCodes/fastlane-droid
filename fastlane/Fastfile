@@ -70,4 +70,16 @@ platform :android do
       success: false
       )
   end
+
+  desc "Deploy latest Beta build to Crashlytics Beta"
+  lane :beta do
+    gradle(task: "assembleRelease")
+    crashlytics
+  end
+  
+  desc "Deploy latest version to Google Play"
+  lane :deploy do
+    gradle(task: "assembleRelease")
+    upload_to_play_store
+  end  
 end

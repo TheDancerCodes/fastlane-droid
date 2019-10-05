@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package com.example.android.architecture.blueprints.todoapp
+package com.thedancercodes.fastlanedroid.todoapp
 
 import android.content.Context
 import androidx.annotation.VisibleForTesting
 import androidx.room.Room
-import com.example.android.architecture.blueprints.todoapp.data.source.DefaultTasksRepository
-import com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository
-import com.example.android.architecture.blueprints.todoapp.data.source.local.TasksLocalDataSource
-import com.example.android.architecture.blueprints.todoapp.data.source.local.ToDoDatabase
-import com.example.android.architecture.blueprints.todoapp.data.source.remote.TasksRemoteDataSource
+import com.thedancercodes.fastlanedroid.todoapp.data.source.DefaultTasksRepository
+import com.thedancercodes.fastlanedroid.todoapp.data.source.TasksRepository
+import com.thedancercodes.fastlanedroid.todoapp.data.source.local.TasksLocalDataSource
+import com.thedancercodes.fastlanedroid.todoapp.data.source.local.ToDoDatabase
+import com.thedancercodes.fastlanedroid.todoapp.data.source.remote.TasksRemoteDataSource
 import kotlinx.coroutines.runBlocking
 
 /**

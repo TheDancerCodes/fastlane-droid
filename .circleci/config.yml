@@ -34,3 +34,18 @@ jobs:
       - store_test_results: # for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: app/build/test-results
       # See https://circleci.com/docs/2.0/deployment-integrations/ for deploy examples
+
+  ## Run unit tests
+  test_unit:
+    steps:
+      - checkout
+      - run:
+          name: Run unit tests
+          command: bundle exec fastlane unit_tests
+      - store_artifacts:
+           path: app/build/reports/
+           destination: /reports/
+      - store_test_results:
+          path: app/build/test_results/
+          destination: /test-results/
+

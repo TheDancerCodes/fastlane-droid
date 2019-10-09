@@ -86,9 +86,26 @@ jobs:
           path: app/build/test_results/
           destination: /test-results/
 
+  slack_deployment:
+    <<: *android_config
+    steps:
+      - checkout
+      - *restore_gradle_cache
+      - *restore_gems_cache
+      - *android_dependencies
+      - *ruby_dependencies
+      - *save_gradle_cache
+      - *save_gems_cache
+      - run:
+          name: Upload APK to Slack Channel
+          command: bundle exec fastlane slack_apk_build
+
+
 workflows:
   version: 2
   workflow:
+
+    # Jobs that will run when you push to your repo
     jobs:
       - test_unit
 

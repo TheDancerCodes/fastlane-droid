@@ -54,8 +54,7 @@ save_gems_cache: &save_gems_cache
 ruby_dependencies: &ruby_dependencies
   run:
     name: Download Ruby Dependencies
-    command:
-      gem update --system
+    command: |
       gem install bundler
       bundle check || bundle install --path vendor/bundle
 

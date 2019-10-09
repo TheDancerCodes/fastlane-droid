@@ -2,10 +2,11 @@
 #
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
-version: 2
+workflows:
+  version: 2
 
-# References are blocks of configurations that we can reference and reuse.
-references:
+  # References are blocks of configurations that we can reference and reuse.
+  references:
 
   # Workspaces represent the spaces we work on & are useful for sharing data between jobs.
   # Create a workspace with the ~/code directory.
@@ -61,26 +62,26 @@ references:
       name: Download Android Dependencies
       command: ./gradlew androidDependencies
 
-jobs:
+  jobs:
 
-  ## Run unit tests
-  test_unit:
-    <<: *android_config
-    steps:
-      - checkout
-      - *restore_gradle_cache
-      - *restore_gems_cache
-      - *android_dependencies
-      - *ruby_dependencies
-      - *save_gradle_cache
-      - *save_gems_cache
-      - run:
-          name: Run unit tests
-          command: bundle exec fastlane unit_tests
-      - store_artifacts:
-           path: app/build/reports/
-           destination: /reports/
-      - store_test_results:
-          path: app/build/test_results/
-          destination: /test-results/
+    ## Run unit tests
+    test_unit:
+      <<: *android_config
+      steps:
+        - checkout
+        - *restore_gradle_cache
+        - *restore_gems_cache
+        - *android_dependencies
+        - *ruby_dependencies
+        - *save_gradle_cache
+        - *save_gems_cache
+        - run:
+            name: Run unit tests
+            command: bundle exec fastlane unit_tests
+        - store_artifacts:
+             path: app/build/reports/
+             destination: /reports/
+        - store_test_results:
+            path: app/build/test_results/
+            destination: /test-results/
 

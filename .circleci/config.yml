@@ -56,7 +56,7 @@ ruby_dependencies: &ruby_dependencies
     name: Download Ruby Dependencies
     command: |
       gem install bundler
-      bundle check || bundle install --path vendor/bundle
+      bundle check || bundle update || bundle install --path vendor/bundle
 
 android_dependencies: &android_dependencies
   run:

@@ -17,3 +17,4 @@ fastlane/.env
 
 #keystore
 keystores/
+keystore.jks

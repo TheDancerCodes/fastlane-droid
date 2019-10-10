@@ -7,61 +7,67 @@ version: 2
 # References are blocks of configurations that we can reference and reuse.
 references:
 
-# Workspaces represent the spaces we work on & are useful for sharing data between jobs.
-# Create a workspace with the ~/code directory.
-workspace: &workspace
-  ~/code
+  # Workspaces represent the spaces we work on & are useful for sharing data between jobs.
+  # Create a workspace with the ~/code directory.
+  workspace: &workspace
+    ~/code
 
-# Docker Image Configs
-android_config: &android_config
-  working_directory: *workspace
-  docker:
-    - image: circleci/android:api-28-alpha
-  environment:
-    TERM: dumb
-    _JAVA_OPTIONS: "-Xmx3200m -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
-    GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx3200m"'
+  # Docker Image Configs
+  android_config: &android_config
+    working_directory: *workspace
+    docker:
+      - image: circleci/android:api-28-alpha
+    environment:
+      TERM: dumb
+      _JAVA_OPTIONS: "-Xmx3200m -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
+      GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx3200m"'
 
-# Cache - a cache mechanism for our dependencies
-gradle_key: &gradle_key
-  jars-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
+  # Cache - a cache mechanism for our dependencies
+  gradle_key: &gradle_key
+    jars-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
 
-gems_key: &gems_key
-  gems-{{ checksum "Gemfile.lock" }}
+  gems_key: &gems_key
+    gems-{{ checksum "Gemfile.lock" }}
 
-restore_gradle_cache: &restore_gradle_cache
-  restore_cache:
-    key: *gradle_key
+  restore_gradle_cache: &restore_gradle_cache
+    restore_cache:
+      key: *gradle_key
 
-restore_gems_cache: &restore_gems_cache
-  restore_cache:
-    key: *gems_key
+  restore_gems_cache: &restore_gems_cache
+    restore_cache:
+      key: *gems_key
 
-save_gradle_cache: &save_gradle_cache
-  save_cache:
-    paths:
-      - ~/.gradle
-      - ~/.m2
-    key: *gradle_key
+  save_gradle_cache: &save_gradle_cache
+    save_cache:
+      paths:
+        - ~/.gradle
+        - ~/.m2
+      key: *gradle_key
 
-save_gems_cache: &save_gems_cache
-  save_cache:
-    paths:
-      - vendor/bundle
-    key: *gems_key
+  save_gems_cache: &save_gems_cache
+    save_cache:
+      paths:
+        - vendor/bundle
+      key: *gems_key
 
-# Dependencies
-ruby_dependencies: &ruby_dependencies
-  run:
-    name: Download Ruby Dependencies
-    command: |
-      gem install bundler
-      bundle check || bundle update || bundle install --path vendor/bundle
+  # Dependencies
+  ruby_dependencies: &ruby_dependencies
+    run:
+      name: Download Ruby Dependencies
+      command: |
+        gem install bundler
+        bundle check || bundle update || bundle install --path vendor/bundle
 
-android_dependencies: &android_dependencies
-  run:
-    name: Download Android Dependencies
-    command: ./gradlew androidDependencies
+  android_dependencies: &android_dependencies
+    run:
+      name: Download Android Dependencies
+      command: ./gradlew androidDependencies
+
+  # Keys
+  decode_android_key: &decode_android_key
+    run:
+      name: Decode Android Keystore
+      command: echo $KEYSTORE_PATH | base64 -d | tee keystore.jks app/keystore.jks >/dev/null
 
 jobs:
 
@@ -96,6 +102,7 @@ jobs:
       - *ruby_dependencies
       - *save_gradle_cache
       - *save_gems_cache
+      - *decode_android_key
       - run:
           name: Upload APK to Slack Channel
           command: bundle exec fastlane slack_apk_build
@@ -108,7 +115,7 @@ workflows:
     # Jobs that will run when you push to your repo
     jobs:
       - test_unit
-#      - slack_deployment:
-#          requires:
-#            - test_unit
+      - slack_deployment:
+          requires:
+            - test_unit
 

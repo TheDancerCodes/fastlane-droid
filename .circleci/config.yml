@@ -69,6 +69,16 @@ references:
       name: Decode Android Keystore
       command: echo $KEYSTORE_PATH | base64 -d | tee keystore.jks app/keystore.jks >/dev/null
 
+  # ---------------------------------------------------------------------------------------------------------------------
+  # DECODE FIREBASE GOOGLE_SERVICE_JSON FILE AND WRITE IT TO A FILE
+  # ---------------------------------------------------------------------------------------------------------------------
+  decode_gservices_key: &decode_gservices_key
+    run:
+      name: Decode Google Services JSON key
+      command: |
+        echo $GOOGLE_SERVICES_JSON | base64 -d | tee app/google-services.json app/src/mock/google-services.json app/src/prod/google-services.json >/dev/null
+
+
 jobs:
 
   ## Run unit tests
@@ -82,6 +92,7 @@ jobs:
       - *ruby_dependencies
       - *save_gradle_cache
       - *save_gems_cache
+      - *decode_gservices_key
       - run:
           name: Run unit tests
           command: bundle exec fastlane unit_tests

@@ -24,11 +24,13 @@ repositories {
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.thedancercodes.fastlanedroid"
+        applicationId "com.thedancercodes.fastlanedroid.todoapp"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
         versionCode 1
         versionName "1.0"
+
+        multiDexEnabled true
 
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
@@ -205,4 +207,12 @@ dependencies {
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+
+    // Firebase
+    implementation 'com.google.firebase:firebase-analytics:17.2.0'
+
+    // Multidex
+    implementation 'com.android.support:multidex:1.0.3'
 }
+
+apply plugin: 'com.google.gms.google-services'

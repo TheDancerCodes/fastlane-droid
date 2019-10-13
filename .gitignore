@@ -15,6 +15,11 @@ fastlane/test_output
 fastlane/README.md
 fastlane/.env
 
-#keystore
+# keystore
 keystores/
 keystore.jks
+
+# google-services.json
+app/google-services.json
+app/src/mock/google-services.json
+app/src/prod/google-services.json

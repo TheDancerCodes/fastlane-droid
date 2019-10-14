@@ -78,6 +78,14 @@ references:
       command: |
         echo $GOOGLE_SERVICES_JSON | base64 -d | tee app/google-services.json app/src/mock/google-services.json app/src/prod/google-services.json >/dev/null
 
+  # ---------------------------------------------------------------------------------------------------------------------
+  # INSTALL THE FIREBASE CLI FILE & ENABLE THE GLOBALLY AVAILABLE firebase COMMAND
+  # ---------------------------------------------------------------------------------------------------------------------
+  firebase_cli_install: &firebase_cli_install
+    run:
+      name: Install the Firebase CLI
+      command: $FIREBASE_CLI_INSTALL
+
 
 jobs:
 
@@ -129,6 +137,7 @@ jobs:
       - *save_gradle_cache
       - *save_gems_cache
       - *decode_android_key
+      - *firebase_cli_install
       - run:
           name: Deploy latest Beta build to Firebase App Distribution
           command: bundle exec fastlane distribute group:android-qa

@@ -96,8 +96,7 @@ platform :android do
           app: ENV['FIREBASE_APP_ID_ANDROID'],
           groups: options[:group],
           release_notes: "Fastlane Droid Release Notes Updated 1.0.0",
-          # firebase_cli_path: "/usr/local/bin/firebase", # (for local build)
-          firebase_cli_path:  File.exist?("../firebase") ? "../firebase" : "/firebase",
+          firebase_cli_path: "/usr/local/bin/firebase",
           firebase_cli_token: ENV['FIREBASE_CI_TOKEN']
       )
     else

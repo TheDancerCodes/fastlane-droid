@@ -118,6 +118,20 @@ jobs:
           name: Upload APK to Slack Channel
           command: bundle exec fastlane slack_apk_build
 
+  firebase_app_distribution:
+    <<: *android_config
+    steps:
+      - checkout
+      - *restore_gradle_cache
+      - *restore_gems_cache
+      - *android_dependencies
+      - *ruby_dependencies
+      - *save_gradle_cache
+      - *save_gems_cache
+      - *decode_android_key
+      - run:
+          name: Deploy latest Beta build to Firebase App Distribution
+          command: bundle exec fastlane distribute group:android-qa
 
 workflows:
   version: 2
@@ -129,4 +143,4 @@ workflows:
       - slack_deployment:
           requires:
             - test_unit
-
+      - firebase_app_distribution

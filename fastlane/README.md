@@ -16,6 +16,11 @@ or alternatively using `brew cask install fastlane`
 
 # Available Actions
 ## Android
+### android unit_tests
+```
+fastlane android unit_tests
+```
+Run unit tests
 ### android debug_build
 ```
 fastlane android debug_build
@@ -26,6 +31,21 @@ Build a debug APK
 fastlane android slack_apk_build
 ```
 Build a signed release APK & deploy to slack
+### android beta
+```
+fastlane android beta
+```
+Deploy latest Beta build to Crashlytics Beta
+### android distribute
+```
+fastlane android distribute
+```
+Deploy latest Beta build to Firebase App Distribution
+### android deploy
+```
+fastlane android deploy
+```
+Deploy latest version to Google Play
 
 ----
 

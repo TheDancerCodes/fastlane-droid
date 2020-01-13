@@ -149,8 +149,8 @@ workflows:
 
     # Jobs that will run when you push to your repo
     jobs:
-      #- test_unit
-      #- slack_deployment:
-          #requires:
-            #- test_unit
+      - test_unit
+      - slack_deployment:
+          requires:
+            - test_unit
       - firebase_app_distribution

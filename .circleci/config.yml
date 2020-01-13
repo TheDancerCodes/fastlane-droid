@@ -153,6 +153,6 @@ workflows:
       - slack_deployment:
           requires:
             - test_unit
-      - firebase_app_distribution
+      - firebase_app_distribution:
           requires:
             - test_unit

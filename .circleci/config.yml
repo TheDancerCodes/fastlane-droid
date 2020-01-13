@@ -154,3 +154,5 @@ workflows:
           requires:
             - test_unit
       - firebase_app_distribution
+          requires:
+            - test_unit

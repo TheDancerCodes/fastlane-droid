@@ -95,7 +95,7 @@ platform :android do
       firebase_app_distribution(
           app: ENV['FIREBASE_APP_ID_ANDROID'],
           groups: options[:group],
-          release_notes: "Fastlane Droid Release Notes Updated 1.0.0",
+          release_notes: "Fastlane Droid Release Notes Updated 1.0.1",
           firebase_cli_path: "/usr/local/bin/firebase",
           firebase_cli_token: ENV['FIREBASE_CI_TOKEN']
       )

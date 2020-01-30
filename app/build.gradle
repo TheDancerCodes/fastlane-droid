@@ -164,7 +164,10 @@ dependencies {
     testImplementation "androidx.arch.core:core-testing:$archTestingVersion"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
-    testImplementation "org.robolectric:robolectric:$robolectricVersion"
+    testImplementation ("org.robolectric:robolectric:$robolectricVersion") {
+        // https://github.com/robolectric/robolectric/issues/5245
+        exclude group: 'com.google.auto.service', module: 'auto-service'
+    }
     testImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
     testImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
     testImplementation "androidx.test.espresso:espresso-intents:$espressoVersion"

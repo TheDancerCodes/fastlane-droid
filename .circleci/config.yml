@@ -117,6 +117,30 @@ jobs:
     <<: *android_config
     steps:
       - checkout
+      # Setup Android Variables for Android Emulator
+      - run:
+          name: Setup environment variables
+          command: |
+            echo 'export PATH="$PATH:/usr/local/opt/node@8/bin:${HOME}/.yarn/bin:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin:/usr/local/share/android-sdk/tools/bin"' >> $BASH_ENV
+            echo 'export ANDROID_HOME="/usr/local/share/android-sdk"' >> $BASH_ENV
+            echo 'export ANDROID_SDK_HOME="/usr/local/share/android-sdk"' >> $BASH_ENV
+            echo 'export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"' >> $BASH_ENV
+            echo 'export QEMU_AUDIO_DRV=none' >> $BASH_ENV
+            echo 'export JAVA_HOME=/Library/Java/Home' >> $BASH_ENV
+
+      # Install Android SDK
+      - run:
+          name: Install Android sdk
+          command: |
+            HOMEBREW_NO_AUTO_UPDATE=1 brew tap homebrew/cask
+            HOMEBREW_NO_AUTO_UPDATE=1 brew cask install android-sdk
+
+      # Install Emulator
+      - run:
+          name: Install emulator
+          command: (yes | sdkmanager "platform-tools" "platforms;android-26" "extras;intel;Hardware_Accelerated_Execution_Manager" "build-tools;26.0.0" "system-images;android-26;default;x86" "emulator" --verbose) || true
+
+      # Gradle and ruby/fastlane dependencies
       - *restore_gradle_cache
       - *restore_gems_cache
       - *android_dependencies
@@ -124,24 +148,35 @@ jobs:
       - *save_gradle_cache
       - *save_gems_cache
       - *decode_gservices_key
+#      - run:
+#          name: Setup emulator
+#          command: sdkmanager "system-images;android-16;default;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-16;default;armeabi-v7a"
+#      - run:
+#          name: Launch emulator
+#          command: export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib && emulator64-arm -avd test -noaudio -no-boot-anim -no-window -accel auto -verbose
+#          background: true
+#      - run:
+#          name: Wait emulator
+#          command: |
+#            # wait for it to have booted
+#            circle-android wait-for-boot
+#            # unlock the emulator screen
+#            sleep 30
+#            adb shell input keyevent 82
+
+      # Start emulator
+      - run: avdmanager create avd -n Nexus_5X_API_26_x86 -k "system-images;android-26;default;x86" -d "Nexus 5X"
+      - run: osascript ./fastlane/recording_related/dismiss_warning.scpt # Dismisses the same named computer error
       - run:
-          name: Setup emulator
-          command: sdkmanager "system-images;android-16;default;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-16;default;armeabi-v7a"
-      - run:
-          name: Launch emulator
-          command: export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib && emulator64-arm -avd test -noaudio -no-boot-anim -no-window -accel auto -verbose
+          name: Run emulator in background
+          command: /usr/local/share/android-sdk/tools/emulator @Nexus_5X_API_26_x86 -skin 1080x2066 -memory 2048 -noaudio
           background: true
-      - run:
-          name: Wait emulator
-          command: |
-            # wait for it to have booted
-            circle-android wait-for-boot
-            # unlock the emulator screen
-            sleep 30
-            adb shell input keyevent 82
+
+      # Instrumented tests
       - run:
           name: Run Instrumented Tests - (Espresso Tests)
           command: bundle exec fastlane instrumented_tests
+          no_output_timeout: 30m
       - store_artifacts:
           path: app/build/outputs/
           destination: /outputs/

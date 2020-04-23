@@ -32,12 +32,6 @@ platform :android do
   desc "Run Instrumented tests"
   lane :instrumented_tests do |options|
     gradle(task: "connectedProdDebugAndroidTest")
-
-    error do |lane, exception|
-        slack(
-          message: exception.message,
-          success: false
-          )
   end
 
   desc "Build a debug APK"

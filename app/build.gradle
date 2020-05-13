@@ -97,7 +97,6 @@ android {
         // release branch (prod variant)
         prod {
             dimension "env"
-            applicationIdSuffix = ".prod"
         }
     }
 

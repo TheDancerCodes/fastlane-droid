@@ -51,7 +51,7 @@ platform :android do
     assemble_build(build_flavor:options[:build_flavor] + "Debug", build_type:"AndroidTest")
     @android_test_apk = Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
 
-    run_tests_firebase(
+    run_tests_firebase_testlab(
       project_id: ENV["FIREBASE_PROJECT_ID"],
       app_apk: @app_apk,
       android_test_apk: @android_test_apk,

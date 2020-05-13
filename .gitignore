@@ -23,3 +23,10 @@ keystore.jks
 app/google-services.json
 app/src/mock/google-services.json
 app/src/prod/google-services.json
+app/src/dev/google-services.json
+app/src/qa/google-services.json
+
+# Firebase Test Lab
+firebase/
+instrumentation_output.txt
+client-secret.json

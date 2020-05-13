@@ -16,11 +16,21 @@ or alternatively using `brew cask install fastlane`
 
 # Available Actions
 ## Android
+### android assemble_build
+```
+fastlane android assemble_build
+```
+Assemble Build
 ### android unit_tests
 ```
 fastlane android unit_tests
 ```
-Run unit tests
+Run unit tests with specified buildVariant(buildFlavor + BuildType)
+### android instrumentation_tests_firebase_testlab
+```
+fastlane android instrumentation_tests_firebase_testlab
+```
+Run Instrumented tests in Firebase Test Lab
 ### android debug_build
 ```
 fastlane android debug_build

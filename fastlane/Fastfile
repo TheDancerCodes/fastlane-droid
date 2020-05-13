@@ -43,9 +43,26 @@ platform :android do
     )
   end
 
-  desc "Run Instrumented tests"
-  lane :instrumented_tests do |options|
-    gradle(task: "connectedProdDebugAndroidTest")
+  desc "Run Instrumented tests in Firebase Test Lab"
+  lane :instrumentation_tests_firebase_testlab do |options|
+    assemble_build(build_flavor:options[:build_flavor], build_type:"Debug")
+    @app_apk = Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+
+    assemble_build(build_flavor:options[:build_flavor] + "Debug", build_type:"AndroidTest")
+    @android_test_apk = Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+
+    run_tests_firebase(
+      project_id: ENV["FIREBASE_PROJECT_ID"],
+      app_apk: @app_apk,
+      android_test_apk: @android_test_apk,
+      devices: [
+        {
+            model: "Nexus6P",
+            version: "27"
+        }
+      ],
+      delete_firebase_files: true
+    )
   end
 
   desc "Build a debug APK"

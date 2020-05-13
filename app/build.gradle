@@ -76,16 +76,28 @@ android {
         }
     }
 
-    flavorDimensions "default"
+    flavorDimensions "env"
 
     // If you need to add more flavors, consider using flavor dimensions.
     productFlavors {
         mock {
-            dimension "default"
+            dimension "env"
             applicationIdSuffix = ".mock"
         }
+        // dev branch (dev variant)
+        dev {
+            dimension "env"
+            applicationIdSuffix = ".dev"
+        }
+        // master branch (qa variant)
+        qa {
+            dimension "env"
+            applicationIdSuffix = ".qa"
+        }
+        // release branch (prod variant)
         prod {
-            dimension "default"
+            dimension "env"
+            applicationIdSuffix = ".prod"
         }
     }
 

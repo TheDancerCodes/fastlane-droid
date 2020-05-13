@@ -24,9 +24,23 @@ platform :android do
    ENV["SLACK_URL"]
   end
 
-  desc "Run unit tests"
+  # This lane builds our app with specified buildVariant(buildFlavor + BuildType)
+  desc "Assemble Build"
+  lane :assemble_build do |options|
+    gradle(
+      task: "assemble",
+      flavor: options[:build_flavor],
+      build_type: options[:build_type]
+    )
+  end
+
+  desc "Run unit tests with specified buildVariant(buildFlavor + BuildType)"
   lane :unit_tests do |options|
-    gradle(task: "testProdDebugUnitTest")
+    gradle(
+      task: "test",
+      flavor: options[:build_flavor],
+      build_type: options[:build_type]
+    )
   end
 
   desc "Run Instrumented tests"

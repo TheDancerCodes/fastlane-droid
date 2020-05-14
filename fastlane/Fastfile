@@ -70,6 +70,7 @@ platform :android do
     gradle(task: "clean assembleDebug")
   end
 
+ # Note: To run this locally, add flavor & update keystore.jks to ENV['KEYSTORE_PATH']
   desc "Build a signed release APK & deploy to slack"
   lane :slack_apk_build do
     gradle(

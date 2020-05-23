@@ -142,8 +142,12 @@ platform :android do
   end
   
   desc "Deploy latest version to Google Play"
-  lane :deploy do
-    gradle(task: "assembleRelease")
-    upload_to_play_store
+  lane :playstore do |options|
+    gradle(
+      task: "assemble",
+      flavor: options[:build_flavor],
+      build_type: options[:build_type]
+    )
+    upload_to_play_store # Uploads the APK built in the gradle step above and releases it to all production users
   end  
 end

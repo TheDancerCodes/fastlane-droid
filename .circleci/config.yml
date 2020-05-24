@@ -105,7 +105,6 @@ jobs:
       - run:
           name: Run unit tests
           command: |
-#            if [[ ! -z "$CIRCLE_PULL_REQUEST" ]]
 #            if [ -z "${CIRCLE_PULL_REQUEST}" ];
             if [[ ! -z "$CIRCLE_PULL_REQUEST" ]]; then
               echo "Doing a Pull Request Build for ${CIRCLE_PULL_REQUEST}."

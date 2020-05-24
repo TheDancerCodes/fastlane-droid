@@ -106,7 +106,7 @@ jobs:
           name: Run unit tests
           command: |
 #            if [ -z "${CIRCLE_PULL_REQUEST}" ];
-            if [[ ! -z "$CIRCLE_PULL_REQUEST" ]]; then
+            if [[ "$CIRCLE_PULL_REQUEST" ]]; then
               echo "Doing a Pull Request Build for ${CIRCLE_PULL_REQUEST}."
               bundle exec fastlane unit_tests build_flavor:"dev" build_type:"debug"
             elif [ "${CIRCLE_BRANCH}" == "master" ]; then

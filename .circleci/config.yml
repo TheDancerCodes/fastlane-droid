@@ -104,7 +104,24 @@ jobs:
       - *decode_gservices_key
       - run:
           name: Run unit tests
-          command: bundle exec fastlane unit_tests
+          command: |
+#            if [[ ! -z "$CIRCLE_PULL_REQUEST" ]]
+            if [ -z "${CIRCLE_PULL_REQUEST:-}" ];
+            then
+              echo "Doing a Pull Request Build for ${CIRCLE_PULL_REQUEST}."
+              bundle exec fastlane unit_tests build_flavor:"dev" build_type:"debug"
+            elif [ "${CIRCLE_BRANCH}" == "master" ];
+            then
+              echo "Doing a Build on the ${CIRCLE_BRANCH} branch."
+              bundle exec fastlane unit_tests build_flavor:"qa" build_type:"debug"
+            elif [ "${CIRCLE_BRANCH}" == "release" ]; # /^release-[0-9]+\.[0-9]+\.[0-9]+$/
+            then
+              echo "Doing a Build on the ${CIRCLE_BRANCH} branch."
+              bundle exec fastlane unit_tests build_flavor:"prod" build_type:"release"
+            else
+              echo "Doing a default Build on the ${CIRCLE_BRANCH} branch."
+              bundle exec fastlane unit_tests
+              # bundle exec fastlane instrumentation_tests_firebase_testlab build_flavor:"Qa"
       - store_artifacts:
            path: app/build/reports/
            destination: /reports/
@@ -113,7 +130,7 @@ jobs:
           destination: /test-results/
 
   ## Run Instrumented Tests
-  test_instrumented:
+  test_instrumentation:
     <<: *android_config
     steps:
       - checkout
@@ -222,12 +239,12 @@ workflows:
     # Jobs that will run when you push to your repo
     jobs:
       - test_unit
-      - test_instrumented:
+      - test_instrumentation:
           requires:
             - test_unit
       - slack_deployment:
           requires:
-            - test_instrumented
+            - test_instrumentation
       - firebase_app_distribution:
           requires:
-            - test_instrumented
+            - test_instrumentation

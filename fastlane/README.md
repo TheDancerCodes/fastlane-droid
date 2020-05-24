@@ -51,9 +51,9 @@ Deploy latest Beta build to Crashlytics Beta
 fastlane android distribute
 ```
 Deploy latest Beta build to Firebase App Distribution
-### android deploy
+### android playstore
 ```
-fastlane android deploy
+fastlane android playstore
 ```
 Deploy latest version to Google Play
 

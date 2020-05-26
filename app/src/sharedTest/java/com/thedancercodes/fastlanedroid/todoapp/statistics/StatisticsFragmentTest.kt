@@ -35,7 +35,7 @@ import org.robolectric.annotation.Config
 @RunWith(AndroidJUnit4::class)
 @MediumTest
 @ExperimentalCoroutinesApi
-@Config(sdk = [Build.VERSION_CODES.O_MR1])
+@Config(sdk = [Build.VERSION_CODES.P], minSdk = Build.VERSION_CODES.JELLY_BEAN)
 class StatisticsFragmentTest {
     private lateinit var repository: TasksRepository
 

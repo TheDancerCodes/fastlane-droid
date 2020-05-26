@@ -160,6 +160,7 @@ jobs:
             else
               echo "Run Instrumented Test for a default Build on the ${CIRCLE_BRANCH} branch."
               bundle exec fastlane instrumentation_tests_firebase_testlab build_flavor:"dev"
+            fi
       - store_artifacts:
           path: app/build/outputs/
           destination: /outputs/

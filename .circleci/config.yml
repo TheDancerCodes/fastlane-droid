@@ -178,6 +178,7 @@ jobs:
       - *ruby_dependencies
       - *save_gradle_cache
       - *save_gems_cache
+      - *decode_gservices_key
       - *decode_android_key
       - run:
           name: Upload APK to Slack Channel

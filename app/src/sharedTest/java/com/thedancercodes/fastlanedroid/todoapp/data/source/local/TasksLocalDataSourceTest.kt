@@ -1,5 +1,6 @@
 package com.thedancercodes.fastlanedroid.todoapp.data.source.local
 
+import android.os.Build
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
@@ -21,6 +22,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.annotation.Config
 
 /**
  * Integration test for the [TasksDataSource].
@@ -28,6 +30,7 @@ import org.junit.runner.RunWith
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 @MediumTest
+@Config(sdk = [Build.VERSION_CODES.P], minSdk = Build.VERSION_CODES.JELLY_BEAN)
 class TasksLocalDataSourceTest {
 
     private lateinit var localDataSource: TasksLocalDataSource

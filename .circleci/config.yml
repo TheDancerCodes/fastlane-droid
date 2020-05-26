@@ -76,7 +76,7 @@ references:
     run:
       name: Decode Google Services JSON key
       command: |
-        echo $GOOGLE_SERVICES_JSON | base64 -d | tee app/google-services.json app/src/mock/google-services.json app/src/prod/google-services.json >/dev/null
+        echo $GOOGLE_SERVICES_JSON | base64 -d | tee app/google-services.json app/src/mock/google-services.json app/src/prod/google-services.json app/src/dev/google-services.json app/src/qa/google-services.json >/dev/null
 
   # ---------------------------------------------------------------------------------------------------------------------
   # INSTALL THE FIREBASE CLI FILE & ENABLE THE GLOBALLY AVAILABLE firebase COMMAND

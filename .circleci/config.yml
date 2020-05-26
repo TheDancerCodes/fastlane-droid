@@ -104,7 +104,10 @@ jobs:
       - *decode_gservices_key
       - run:
           name: Run unit tests
-          command: bundle exec fastlane unit_tests
+#          command: bundle exec fastlane unit_tests
+          command: |
+             echo "Doing a default Build on the ${CIRCLE_BRANCH} branch."
+             bundle exec fastlane unit_tests build_flavor:"dev" build_type:"debug"
 #          command: |
 ##            if [ -z "${CIRCLE_PULL_REQUEST}" ];
 #            if [[ "$CIRCLE_PULL_REQUEST" ]]; then

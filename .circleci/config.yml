@@ -206,7 +206,7 @@ workflows:
     # Jobs that will run when you push to your repo
     jobs:
 #      - test_unit
-      - test_instrumentation:
+      - test_instrumentation
 #          requires:
 #            - test_unit
       - slack_deployment:

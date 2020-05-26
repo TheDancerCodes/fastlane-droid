@@ -116,7 +116,7 @@ jobs:
               bundle exec fastlane unit_tests build_flavor:"prod" build_type:"release"
             else
               echo "Doing a default Build on the ${CIRCLE_BRANCH} branch."
-              bundle exec fastlane unit_tests
+              bundle exec fastlane unit_tests build_flavor:"dev" build_type:"debug"
             fi
       - store_artifacts:
            path: app/build/reports/

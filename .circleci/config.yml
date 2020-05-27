@@ -204,6 +204,10 @@ workflows:
           requires:
             - test_unit
       - slack_deployment:
+          filters:
+            branches:
+              only:
+                - master
           requires:
             - test_instrumentation
       - firebase_app_distribution:

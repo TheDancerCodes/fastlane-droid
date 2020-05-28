@@ -30,3 +30,6 @@ app/src/qa/google-services.json
 firebase/
 instrumentation_output.txt
 client-secret.json
+
+# Google Play Android Developer project Service accounts json file
+google-play-json-key-file.json

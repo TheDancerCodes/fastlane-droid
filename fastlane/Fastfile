@@ -146,8 +146,15 @@ platform :android do
     gradle(
       task: "assemble",
       flavor: options[:build_flavor],
-      build_type: options[:build_type]
+      build_type: options[:build_type],
+      properties: {
+        "android.injected.signing.store.file" => "fastlane-droid.jks",
+        "android.injected.signing.store.password" => ENV['STORE_PASSWORD'],
+        "android.injected.signing.key.alias" => ENV['KEY_ALIAS'],
+        "android.injected.signing.key.password" => ENV['KEY_PASSWORD'],
+       }
     )
-    upload_to_play_store # Uploads the APK built in the gradle step above and releases it to all production users
+    # Uploads the APK built in the gradle step above and releases it to an internal test track
+    upload_to_play_store(track:'internal')
   end  
 end

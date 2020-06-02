@@ -67,7 +67,7 @@ references:
   decode_android_key: &decode_android_key
     run:
       name: Decode Android Keystore
-      command: echo $KEYSTORE_PATH | base64 -d | tee keystore.jks app/keystore.jks >/dev/null
+      command: echo $KEYSTORE_PATH | base64 -d | tee fastlane-droid.jks app/fastlane-droid.jks >/dev/null
 
   # ---------------------------------------------------------------------------------------------------------------------
   # DECODE FIREBASE GOOGLE_SERVICE_JSON FILE AND WRITE IT TO A FILE
@@ -193,6 +193,22 @@ jobs:
           name: Deploy latest Beta build to Firebase App Distribution
           command: bundle exec fastlane distribute group:android-qa
 
+  playstore_deployment:
+    <<: *android_config
+    steps:
+      - checkout
+      - *restore_gradle_cache
+      - *restore_gems_cache
+      - *android_dependencies
+      - *ruby_dependencies
+      - *save_gradle_cache
+      - *save_gems_cache
+      - *decode_gservices_key
+      - *decode_android_key
+      - run:
+          name: Upload Signed APK to Internal Test Track
+          command: bundle exec fastlane playstore build_flavor:"prod" build_type:"release"
+
 workflows:
   version: 2
   workflow:
@@ -211,5 +227,12 @@ workflows:
           requires:
             - test_instrumentation
       - firebase_app_distribution:
+          requires:
+            - test_instrumentation
+      - playstore_deployment:
+          filters:
+            branches:
+              only:
+                - /^release-[0-9]+\.[0-9]+\.[0-9]+$/
           requires:
             - test_instrumentation

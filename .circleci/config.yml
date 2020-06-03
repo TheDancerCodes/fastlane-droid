@@ -111,7 +111,7 @@ jobs:
             elif [ "${CIRCLE_BRANCH}" == "master" ]; then
               echo "Doing a Build on the ${CIRCLE_BRANCH} branch."
               bundle exec fastlane unit_tests build_flavor:"qa" build_type:"debug"
-            elif [ "${CIRCLE_BRANCH}" == "release" ];  then
+            elif [[ "${CIRCLE_BRANCH}" =~ ^release-.*$ ]];  then
               echo "Doing a Build on the ${CIRCLE_BRANCH} branch."
               bundle exec fastlane unit_tests build_flavor:"prod" build_type:"release"
             else
@@ -146,8 +146,7 @@ jobs:
             elif [ "${CIRCLE_BRANCH}" == "master" ]; then
               echo "Run Instrumented Test on the ${CIRCLE_BRANCH} branch."
               bundle exec fastlane instrumentation_tests_firebase_testlab build_flavor:"qa"
-            elif [ "${CIRCLE_BRANCH}" == "release" ]; # /^release-[0-9]+\.[0-9]+\.[0-9]+$/
-            then
+            elif [[ "${CIRCLE_BRANCH}" =~ ^release-.*$ ]];  then
               echo "Run Instrumented Test on the ${CIRCLE_BRANCH} branch."
               bundle exec fastlane instrumentation_tests_firebase_testlab build_flavor:"prod"
             else

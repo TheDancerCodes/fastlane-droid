@@ -30,6 +30,7 @@ import org.robolectric.annotation.Config
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 @MediumTest
+@Config(sdk =  [Build.VERSION_CODES.P])
 class TasksLocalDataSourceTest {
 
     private lateinit var localDataSource: TasksLocalDataSource

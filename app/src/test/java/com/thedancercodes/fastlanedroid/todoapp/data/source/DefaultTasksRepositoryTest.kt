@@ -1,5 +1,6 @@
 package com.thedancercodes.fastlanedroid.todoapp.data.source
 
+import android.os.Build
 import com.thedancercodes.fastlanedroid.todoapp.data.Result
 import com.thedancercodes.fastlanedroid.todoapp.data.Result.Success
 import com.thedancercodes.fastlanedroid.todoapp.data.Task
@@ -9,10 +10,12 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Test
+import org.robolectric.annotation.Config
 
 /**
  * Unit tests for the implementation of the in-memory repository with cache.
  */
+@Config(sdk =  [Build.VERSION_CODES.P])
 class DefaultTasksRepositoryTest {
 
     private val task1 = Task("Title1", "Description1")

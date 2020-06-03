@@ -1,5 +1,6 @@
 package com.thedancercodes.fastlanedroid.todoapp.data.source.local
 
+import android.os.Build
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
@@ -17,10 +18,12 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.annotation.Config
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 @SmallTest
+@Config(sdk =  [Build.VERSION_CODES.P])
 class TasksDaoTest {
 
     private lateinit var database: ToDoDatabase

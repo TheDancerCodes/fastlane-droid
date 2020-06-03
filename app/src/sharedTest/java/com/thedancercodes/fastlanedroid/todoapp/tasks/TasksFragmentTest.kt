@@ -295,16 +295,16 @@ class TasksFragmentTest {
         onView(withText("You have no completed tasks!")).check(matches((isDisplayed())))
     }
 
-    @Test
-    fun noTasks_ActiveTasksFilter_AddTaskViewNotVisible() {
-        launch(TasksActivity::class.java)
-
-        onView(withId(R.id.menu_filter)).perform(click())
-        onView(withText(R.string.nav_active)).perform(click())
-
-        // Verify the "You have no active tasks!" text is shown
-        onView(withText("You have no active tasks!")).check(matches((isDisplayed())))
-    }
+//    @Test
+//    fun noTasks_ActiveTasksFilter_AddTaskViewNotVisible() {
+//        launch(TasksActivity::class.java)
+//
+//        onView(withId(R.id.menu_filter)).perform(click())
+//        onView(withText(R.string.nav_active)).perform(click())
+//
+//        // Verify the "You have no active tasks!" text is shown
+//        onView(withText("You have no active tasks!")).check(matches((isDisplayed())))
+//    }
 
     @Test
     fun clickAddTaskButton_navigateToAddEditFragment_solution() {

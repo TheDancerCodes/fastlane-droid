@@ -111,7 +111,7 @@ jobs:
             elif [ "${CIRCLE_BRANCH}" == "master" ]; then
               echo "Doing a Build on the ${CIRCLE_BRANCH} branch."
               bundle exec fastlane unit_tests build_flavor:"qa" build_type:"debug"
-            elif [ "${CIRCLE_BRANCH}" =~ ^release\/.+$ ];  then
+            elif [[ "${CIRCLE_BRANCH}" = ^release\/.+$ ]];  then
               echo "Doing a Build on the ${CIRCLE_BRANCH} branch."
               bundle exec fastlane unit_tests build_flavor:"prod" build_type:"release"
             else

@@ -1,6 +1,7 @@
 package com.thedancercodes.fastlanedroid.todoapp.tasks
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.testing.launchFragmentInContainer
@@ -36,6 +37,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
+import org.robolectric.annotation.Config
 import org.robolectric.annotation.LooperMode
 import org.robolectric.annotation.TextLayoutMode
 
@@ -48,6 +50,7 @@ import org.robolectric.annotation.TextLayoutMode
 @LooperMode(LooperMode.Mode.PAUSED)
 @TextLayoutMode(TextLayoutMode.Mode.REALISTIC)
 @ExperimentalCoroutinesApi
+@Config(sdk =  [Build.VERSION_CODES.P])
 class TasksFragmentTest {
 
     private lateinit var repository: TasksRepository

@@ -1,5 +1,6 @@
 package com.thedancercodes.fastlanedroid.todoapp.taskdetail
 
+import android.os.Build
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -22,6 +23,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.annotation.Config
 
 /**
  * Integration test for the Task Details screen.
@@ -29,6 +31,7 @@ import org.junit.runner.RunWith
 @MediumTest
 @RunWith(AndroidJUnit4::class)
 @ExperimentalCoroutinesApi
+@Config(sdk =  [Build.VERSION_CODES.P])
 class TaskDetailFragmentTest {
 
     private lateinit var repository: TasksRepository

@@ -1,8 +1,12 @@
 # FastlaneDroid
 
 A Android app setup that demonstrates the use of [Fastlane Tools](https://fastlane.tools/) to automate the 
-Android Build and Release Process
+Android Build and Release Process.
 
+This is the source code to the blog series **Automating the Android Build and Release Process using Fastlane:**
+* [Part 1](https://proandroiddev.com/automating-the-android-build-and-release-process-using-fastlane-part-i-fb3ce61b678)
+* [Part 2](https://proandroiddev.com/automating-the-android-build-and-release-process-using-fastlane-part-2-607770df0db9)
+* Part 3 (Coming soon...)
 
 ## Project Setup
 

@@ -75,10 +75,11 @@ platform :android do
   lane :slack_apk_build do
     gradle(
       task: "assemble",
+      flavor: "qa",
       build_type: "Release",
       print_command: false,
       properties: {
-        "android.injected.signing.store.file" => "keystore.jks",
+        "android.injected.signing.store.file" => "fastlane-droid.jks",
         "android.injected.signing.store.password" => ENV['STORE_PASSWORD'],
         "android.injected.signing.key.alias" => ENV['KEY_ALIAS'],
         "android.injected.signing.key.password" => ENV['KEY_PASSWORD'],

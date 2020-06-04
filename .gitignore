@@ -18,6 +18,7 @@ fastlane/.env
 # keystore
 keystores/
 keystore.jks
+fastlane-droid.jks
 
 # google-services.json
 app/google-services.json

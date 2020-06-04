@@ -20,24 +20,90 @@ platform :android do
   # Runs before all tasks
   before_all do
 
-    # Read the local.properties
-    f = File.open("../local.properties", "r")
-    ENV["SLACK_URL"] = f.each_line.to_a.last.split('=').last
-    f.close
+   # Add SLACK_URL & make it accessible to all lanes
+   ENV["SLACK_URL"]
+  end
+
+  # This lane builds our app with specified buildVariant(buildFlavor + BuildType)
+  desc "Assemble Build"
+  lane :assemble_build do |options|
+    gradle(
+      task: "assemble",
+      flavor: options[:build_flavor],
+      build_type: options[:build_type]
+    )
+  end
+
+  desc "Run unit tests with specified buildVariant(buildFlavor + BuildType)"
+  lane :unit_tests do |options|
+    gradle(
+      task: "test",
+      flavor: options[:build_flavor],
+      build_type: options[:build_type]
+    )
+  end
+
+  desc "Run Instrumented tests in Firebase Test Lab"
+  lane :instrumentation_tests_firebase_testlab do |options|
+    assemble_build(build_flavor:options[:build_flavor], build_type:"Debug")
+    @app_apk = Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+
+    assemble_build(build_flavor:options[:build_flavor] + "Debug", build_type:"AndroidTest")
+    @android_test_apk = Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+
+    run_tests_firebase_testlab(
+      project_id: ENV["FIREBASE_PROJECT_ID"],
+      app_apk: @app_apk,
+      android_test_apk: @android_test_apk,
+      devices: [
+        {
+            model: "Nexus6P",
+            version: "27"
+        }
+      ],
+      delete_firebase_files: true
+    )
   end
 
   desc "Build a debug APK"
-  lane :debug do
+  lane :debug_build do
     gradle(task: "clean assembleDebug")
+  end
+
+ # Note: To run this locally, add flavor & update keystore.jks to ENV['KEYSTORE_PATH']
+  desc "Build a signed release APK & deploy to slack"
+  lane :slack_apk_build do
+    gradle(
+      task: "assemble",
+      build_type: "Release",
+      print_command: false,
+      properties: {
+        "android.injected.signing.store.file" => "keystore.jks",
+        "android.injected.signing.store.password" => ENV['STORE_PASSWORD'],
+        "android.injected.signing.key.alias" => ENV['KEY_ALIAS'],
+        "android.injected.signing.key.password" => ENV['KEY_PASSWORD'],
+      }
+    )
+    upload_to_slack()
+    slack(message: ":rocket: *Build Successful!* :rocket:")
+  end
+
+  desc "Upload APK to Slack channel"
+  private_lane :upload_to_slack do |options|
+    file_path = lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+    file_name = file_path.gsub(/\/.*\//,"")
+    access_token = ENV["ACCESS_TOKEN"]
+    channel_name = "apks"
+
+    sh "echo Uploading " + file_name + " to Slack"
+    sh "curl https://slack.com/api/files.upload -F token=\"" + access_token + "\" -F channels=\"" + channel_name + "\" -F title=\"" + file_name + "\" -F filename=\"" + file_name + "\" -F file=@" + file_path
   end
 
   # Runs after all tasks. This block is called only when the executed lane is successful
   after_all do |lane|
-    
+
     # Slack action
-    slack(
-      message: "Slack Message Delivered Successfully"
-    )
+    # slack(message: ":rocket: Successful Deployment! :rocket:")
   end
 
   error do |lane, exception|
@@ -46,4 +112,49 @@ platform :android do
       success: false
       )
   end
+
+  desc "Deploy latest Beta build to Crashlytics Beta"
+  lane :beta do
+    gradle(task: "assembleRelease")
+    crashlytics
+  end
+
+  # use like this `fastlane distribute group:only-me`
+  desc "Deploy latest Beta build to Firebase App Distribution"
+  lane :distribute do |options|
+    if options[:group]
+      build_android_app(
+        task: "assemble",
+        flavor: "prod",
+        build_type: "release"
+      )
+
+      firebase_app_distribution(
+          app: ENV['FIREBASE_APP_ID_ANDROID'],
+          groups: options[:group],
+          release_notes: "Fastlane Droid Release Notes Updated 1.0.1",
+          firebase_cli_path: "/usr/local/bin/firebase",
+          firebase_cli_token: ENV['FIREBASE_CI_TOKEN']
+      )
+    else
+      UI.user_error!("Missing group name!")
+    end
+  end
+  
+  desc "Deploy latest version to Google Play"
+  lane :playstore do |options|
+    gradle(
+      task: "assemble",
+      flavor: options[:build_flavor],
+      build_type: options[:build_type],
+      properties: {
+        "android.injected.signing.store.file" => "fastlane-droid.jks",
+        "android.injected.signing.store.password" => ENV['STORE_PASSWORD'],
+        "android.injected.signing.key.alias" => ENV['KEY_ALIAS'],
+        "android.injected.signing.key.password" => ENV['KEY_PASSWORD'],
+       }
+    )
+    # Uploads the APK built in the gradle step above and releases it to an internal test track
+    upload_to_play_store(track:'internal')
+  end  
 end

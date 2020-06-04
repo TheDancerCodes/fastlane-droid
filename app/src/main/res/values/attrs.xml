@@ -1,0 +1,5 @@
+<resources>
+    <declare-styleable name="ScrollChildSwipeRefreshLayout">
+        <attr name="refreshing" format="boolean" />
+    </declare-styleable>
+</resources>

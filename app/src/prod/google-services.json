@@ -1,0 +1,167 @@
+{
+  "project_info": {
+    "project_number": "1084690954853",
+    "firebase_url": "https://fastlane-droid.firebaseio.com",
+    "project_id": "fastlane-droid",
+    "storage_bucket": "fastlane-droid.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1084690954853:android:ded84f4976047832fe248c",
+        "android_client_info": {
+          "package_name": "com.thedancercodes.fastlanedroid.todoapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1084690954853-7sb0l3mirujt1tvui4uka2fcaleus6bv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.thedancercodes.fastlanedroid.todoapp",
+            "certificate_hash": "531ceeb78762b644a698ed195e08fe4b730c23dc"
+          }
+        },
+        {
+          "client_id": "1084690954853-ps3hedutjm8vvpg2pd3vo30pgc5fe6ga.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.thedancercodes.fastlanedroid.todoapp",
+            "certificate_hash": "0e09462ca164adc7f28362a8d2f6d4a0179cc96c"
+          }
+        },
+        {
+          "client_id": "1084690954853-m9begl246njtmlpab7a33ctbekhnobkj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxkqmx8tl5mfS5vpDSZUs7QE8iKy8N3tM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1084690954853-m9begl246njtmlpab7a33ctbekhnobkj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1084690954853:android:0faf157a6f63eea4fe248c",
+        "android_client_info": {
+          "package_name": "com.thedancercodes.fastlanedroid.todoapp.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1084690954853-g767nkjc53nktig1l8st2etrqmg5cv0e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.thedancercodes.fastlanedroid.todoapp.dev",
+            "certificate_hash": "0e09462ca164adc7f28362a8d2f6d4a0179cc96c"
+          }
+        },
+        {
+          "client_id": "1084690954853-m9begl246njtmlpab7a33ctbekhnobkj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxkqmx8tl5mfS5vpDSZUs7QE8iKy8N3tM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1084690954853-m9begl246njtmlpab7a33ctbekhnobkj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1084690954853:android:5427f2352e78096ffe248c",
+        "android_client_info": {
+          "package_name": "com.thedancercodes.fastlanedroid.todoapp.mock"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1084690954853-9h9n7ohc62v3564b530ou26uqaq3evlt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.thedancercodes.fastlanedroid.todoapp.mock",
+            "certificate_hash": "0e09462ca164adc7f28362a8d2f6d4a0179cc96c"
+          }
+        },
+        {
+          "client_id": "1084690954853-m9begl246njtmlpab7a33ctbekhnobkj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxkqmx8tl5mfS5vpDSZUs7QE8iKy8N3tM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1084690954853-m9begl246njtmlpab7a33ctbekhnobkj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1084690954853:android:9ab7072765031636fe248c",
+        "android_client_info": {
+          "package_name": "com.thedancercodes.fastlanedroid.todoapp.qa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1084690954853-cegskrvbvf5obm1iuneg8lq5h9sh5lrr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.thedancercodes.fastlanedroid.todoapp.qa",
+            "certificate_hash": "0e09462ca164adc7f28362a8d2f6d4a0179cc96c"
+          }
+        },
+        {
+          "client_id": "1084690954853-m9begl246njtmlpab7a33ctbekhnobkj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxkqmx8tl5mfS5vpDSZUs7QE8iKy8N3tM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1084690954853-m9begl246njtmlpab7a33ctbekhnobkj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -16,11 +16,46 @@ or alternatively using `brew cask install fastlane`
 
 # Available Actions
 ## Android
-### android deploy
+### android assemble_build
 ```
-fastlane android deploy
+fastlane android assemble_build
 ```
-Deploy a new version to the Google Play
+Assemble Build
+### android unit_tests
+```
+fastlane android unit_tests
+```
+Run unit tests with specified buildVariant(buildFlavor + BuildType)
+### android instrumentation_tests_firebase_testlab
+```
+fastlane android instrumentation_tests_firebase_testlab
+```
+Run Instrumented tests in Firebase Test Lab
+### android debug_build
+```
+fastlane android debug_build
+```
+Build a debug APK
+### android slack_apk_build
+```
+fastlane android slack_apk_build
+```
+Build a signed release APK & deploy to slack
+### android beta
+```
+fastlane android beta
+```
+Deploy latest Beta build to Crashlytics Beta
+### android distribute
+```
+fastlane android distribute
+```
+Deploy latest Beta build to Firebase App Distribution
+### android playstore
+```
+fastlane android playstore
+```
+Deploy latest version to Google Play
 
 ----
 

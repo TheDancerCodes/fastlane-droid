@@ -6,3 +6,30 @@
 /build
 /captures
 .externalNativeBuild
+
+# fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+fastlane/README.md
+fastlane/.env
+
+# keystore
+keystores/
+keystore.jks
+
+# google-services.json
+app/google-services.json
+app/src/mock/google-services.json
+app/src/prod/google-services.json
+app/src/dev/google-services.json
+app/src/qa/google-services.json
+
+# Firebase Test Lab
+firebase/
+instrumentation_output.txt
+client-secret.json
+
+# Google Play Android Developer project Service accounts json file
+google-play-json-key-file.json

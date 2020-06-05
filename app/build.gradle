@@ -27,8 +27,8 @@ android {
         applicationId "com.thedancercodes.fastlanedroid.todoapp"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 2
-        versionName "1.0.2"
+        versionCode 3
+        versionName "1.0.3"
 
         multiDexEnabled true
 

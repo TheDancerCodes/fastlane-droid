@@ -79,6 +79,15 @@ references:
         echo $GOOGLE_SERVICES_JSON | base64 -d | tee app/google-services.json app/src/mock/google-services.json app/src/prod/google-services.json app/src/dev/google-services.json app/src/qa/google-services.json >/dev/null
 
   # ---------------------------------------------------------------------------------------------------------------------
+  # DECODE GOOGLE_PLAY_JSON_KEY AND WRITE IT TO A FILE
+  # ---------------------------------------------------------------------------------------------------------------------
+  decode_gplay_key: &decode_gplay_key
+    run:
+      name: Decode Google Play JSON key
+      command: |
+        echo $GOOGLE_PLAY_JSON_KEY | base64 -d | tee google-play-json-key-file.json >/dev/null
+
+  # ---------------------------------------------------------------------------------------------------------------------
   # INSTALL THE FIREBASE CLI FILE & ENABLE THE GLOBALLY AVAILABLE firebase COMMAND
   # ---------------------------------------------------------------------------------------------------------------------
   firebase_cli_install: &firebase_cli_install
@@ -204,6 +213,7 @@ jobs:
       - *save_gems_cache
       - *decode_gservices_key
       - *decode_android_key
+      - *decode_gplay_key
       - run:
           name: Upload Signed APK to Internal Test Track
           command: bundle exec fastlane playstore build_flavor:"prod" build_type:"release"

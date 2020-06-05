@@ -1,2 +1,4 @@
-json_key_file(ENV["GOOGLE_PLAY_JSON_KEY_FILE_PATH"]) # Path to the json secret file - Follow https://docs.fastlane.tools/actions/supply/#setup to get one
+# Path to the json secret file - Follow https://docs.fastlane.tools/actions/supply/#setup to get one
+json_key_file("google-play-json-key-file.json") # For CI
+# json_key_file(ENV["GOOGLE_PLAY_JSON_KEY_FILE_PATH"]) - For local testing
 package_name("com.thedancercodes.fastlanedroid.todoapp") # e.g. com.krausefx.app

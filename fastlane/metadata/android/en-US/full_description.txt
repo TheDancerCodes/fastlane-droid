@@ -1,0 +1,5 @@
+This is a simple to do app that will help you arrange & prioritize your tasks for the day and make you more productive.
+
+It allows you to filter between the different categories of tasks and also gives you statistics regarding the status of the different tasks that you active.
+
+You can also clear and refresh you task list as needed.

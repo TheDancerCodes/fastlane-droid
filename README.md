@@ -6,7 +6,8 @@ Android Build and Release Process.
 This is the source code to the blog series **Automating the Android Build and Release Process using Fastlane:**
 * [Part 1](https://proandroiddev.com/automating-the-android-build-and-release-process-using-fastlane-part-i-fb3ce61b678)
 * [Part 2](https://proandroiddev.com/automating-the-android-build-and-release-process-using-fastlane-part-2-607770df0db9)
-* Part 3 (Coming soon...)
+* [Part 3](https://proandroiddev.com/automating-the-android-build-and-release-process-using-fastlane-part-3-9357414688a2)
+* [Part 4](https://proandroiddev.com/automating-the-android-build-and-release-process-using-fastlane-circle-ci-part-4-32f78b6ac876)
 
 ## Project Setup
 

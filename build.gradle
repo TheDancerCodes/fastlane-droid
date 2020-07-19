@@ -26,8 +26,12 @@ plugins {
 gradleEnterprise {
     // configuration
     buildScan {
+
+        // Connecting to scans.gradle.com by agree to the terms of service
         termsOfServiceUrl = "https://gradle.com/terms-of-service"
         termsOfServiceAgree = "yes"
+
+        // Publishing a build scan for every build execution
         publishAlways()
     }
 }
